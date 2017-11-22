@@ -15,10 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+
 from app import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name = 'index'),
-    # url(r'^', views.index, name = 'index'),
+    url(r'^login/', auth_views.login, name='login'),
+    url(r'^login/', auth_views.login, name = 'signin'),
+    url(r'^accounts/login/', auth_views.login, name='login'),
+    url(r'^logout/', views.userlogout, name='logout'),
+    url(r'^signup/', views.signup, name = 'signup'),
+
+    url(r'^userpage/', views.userpage, name = 'userpage'),
+    url(r'^accounts/profile/', views.userpage, name = 'userpage'),
+
+    url(r'^userpage/', views.userpage, name = 'circuit'),
+    url(r'^profile/', views.userprofile, name = 'profile'),
 ]
