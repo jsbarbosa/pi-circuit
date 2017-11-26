@@ -34,7 +34,7 @@ class Queue():
 
         while self.time_left > 0:
             self.time_left = last - time()
-            sleep(0.1)
+            sleep(0.5)
 
     def setCurrentUser(self):
         if self.currentUsersNumber() > 0:
@@ -88,16 +88,3 @@ class Queue():
     def stop(self):
         self.Thread = None
         self.stopped = True
-
-# queue = Queue(10)
-#
-# usrs = ["MrPotato", "MrsPotato", "Bananaas", "MeVale"]
-# for usr in usrs:
-#     queue.addUser(usr)
-#
-# sleep(1e-3)
-# for i in range(100):
-#     temp = [queue.spectedTime(usr) for usr in queue.line]
-#     print(temp, queue.current_user)
-#     sleep(1)
-# queue.stop()

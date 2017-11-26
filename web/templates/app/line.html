@@ -2,24 +2,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>POTATO</title>
+        <title>Pi-circuit</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
-            setInterval(function()
-            {
-                $.ajax(
-                    {
-                        type: "GET",
-                        url: "{% url 'userpage' %}",
-                    })
-                .done(function(response)
+            $.ajax({
+                url: "{% url 'userpage' %}",
+                success: function(data)
                 {
-                    $('#time_left').html(response);
-                });
-            }, 1000)
+                    $('#time_left').html(data);
+                    setTimeout(refresh, 1000);
+                }
+            })
+            setTimeout(refresh, 1000);
         </script>
     </head>
     <body>
-            <h3 id="time_left">Time Left: {{ left }}</h3>
+        <p id="time_left"> Time Left: {{ left }}</p>
     </body>
 </html>
