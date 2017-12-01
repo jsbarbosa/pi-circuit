@@ -32,6 +32,6 @@ class Element():
         self.set2bitValue(*value)
         
     def __del__(self):
-		GPIO.cleanup()
+        GPIO.cleanup()
 
 GPIO.setmode(GPIO.BCM)
