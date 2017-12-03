@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^profile/', views.userprofile, name = 'profile'),
     
     url(r'^measurements/', views.measurements, name = 'measurements'),
+    url(r'^examplecircuit/', views.examplecircuit, name = 'examplecircuit'),
 ]

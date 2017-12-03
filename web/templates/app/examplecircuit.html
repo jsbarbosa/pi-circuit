@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pi-circuit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+          <a class="navbar-brand" href="{% url 'index' %}">Pi-circuit</a>
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'circuit' %}">Settings</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'examplecircuit' %}">Example Circuit</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'measurements' %}">Measurements</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+          </ul>
+      </nav>
+      <div class="container">
+          <div class="jumbotron text-center">
+              <h1 class="jumbotron-heading">{{ user }}</h1>
+              
+              <div class="text-center">
+                <img src="{% static "examplecircuit.png" %}" class="rounded" width="700px">
+                </div>
+              
+
+              <form method="post">
+                 {% csrf_token %}
+                {{ form.as_p }}
+                 <br>
+                 <button type="submit">Set</button>
+              </form>
+          </div>
+      </div>
+  </body>
+</html>

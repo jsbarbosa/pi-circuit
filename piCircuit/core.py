@@ -42,6 +42,9 @@ class OutPin():
     def setState(self, state):
         GPIO.output(self.pin, state)
         
+    def __del__(self):
+        GPIO.cleanup()
+        
 class InPin():
     def __init__(self, pin):
         self.pin = pin
@@ -49,5 +52,8 @@ class InPin():
         
     def getState(self):
         return GPIO.input(self.pin)
+        
+    def __del__(self):
+        GPIO.cleanup()
 
 GPIO.setmode(GPIO.BCM)

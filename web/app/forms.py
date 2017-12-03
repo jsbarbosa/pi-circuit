@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from piCircuit import NADC, digital
+from piCircuit import NADC, digital, exampleCircuit
 
 class NewUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
@@ -13,12 +13,23 @@ class NewUserForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
-class OldCircuitForm(forms.Form):
-	pass
-    #~ for element in ELEMENTS:
-        #~ exec('%s = forms.BooleanField(required = False)'%element)
-    #~ for sensor in SENSORS:
-        #~ exec('%s = forms.BooleanField(required = False)'%sensor)
+class ExampleCircuitForm(forms.Form):
+	choices1 = (
+    ('1', "R = 100 Ω"),
+    ('2', "Open circuit"),
+    ('3', 'R = 2200 Ω'),
+    ('4', 'Wire'),)
+    
+	choices2 = (
+    ('1', "R = 220 Ω"),
+    ('2', "Open circuit"),
+    ('3', 'R = 33000 Ω'),
+    ('4', 'Wire'),)
+    
+	E1 = forms.ChoiceField(choices=choices1)
+	E2 = forms.ChoiceField(choices=choices1)
+	E3 = forms.ChoiceField(choices=choices2)
+	E4 = forms.ChoiceField(choices=choices2)
         
 class NewCircuitForm(forms.Form):
 	ADC_FIELDS = 2

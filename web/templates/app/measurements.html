@@ -20,6 +20,15 @@
         })
         setTimeout(refresh, 100000);
     </script>
+    <style>
+        table td 
+        {
+          table-layout:fixed;
+          width:20px;
+          overflow:hidden;
+          word-wrap:break-word;
+        }
+    </style>
   </head>
   <body id = "body">
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -30,6 +39,12 @@
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'circuit' %}">Settings</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'examplecircuit' %}">Example Circuit</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'measurements' %}">Measurements</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">Logout</a>
