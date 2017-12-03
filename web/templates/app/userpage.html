@@ -38,20 +38,49 @@
 
               <form method="post">
                  {% csrf_token %}
-                 <table>
-                     {{ form.as_table }}
+                 <h5>Vref: {{ vref }}</h5>
+                 <hr>
+                 <h4>Analog settings:</h4>
+                 <table class="table">
+                    <tr>
+                        <th>Element</th>
+                        <th>Name</th>
+                        <th>Active</th> 
+                    </tr>
+                    
+                    {% for line in adc %}
+                        <tr>
+                            {% for field in line %} 
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <hr>
+                <table class="table">
+                 <h4>Digital input settings:</h4>
+                    {% for line in ins %}
+                        <tr>
+                            {% for field in line %} 
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <hr>
+                <table class="table">
+                <h4>Digital output settings:</h4>
+                    {% for line in outs %}
+                        <tr>
+                            {% for field in line %} 
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
                  </table>
                  <br>
                  <button type="submit">Set</button>
               </form>
-              <!-- <div class="checkbox">
-                  <label><input type="checkbox" value="">R1</label>
-                  <label><input type="checkbox" value="">R2</label>
-                  <label><input type="checkbox" value="">R3</label>
-                  <label><input type="checkbox" value="">R4</label>
-                  <label><input type="checkbox" value="">R5</label>
-                  <label><input type="checkbox" value="">LED</label>
-              </div> -->
           </div>
       </div>
   </body>

@@ -33,5 +33,21 @@ class Element():
         
     def __del__(self):
         GPIO.cleanup()
+        
+class OutPin():
+    def __init__(self, pin):
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.OUT)
+        
+    def setState(self, state):
+        GPIO.output(self.pin, state)
+        
+class InPin():
+    def __init__(self, pin):
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.IN)
+        
+    def getState(self):
+        return GPIO.input(self.pin)
 
 GPIO.setmode(GPIO.BCM)

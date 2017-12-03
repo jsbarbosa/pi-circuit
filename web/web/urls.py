@@ -33,4 +33,6 @@ urlpatterns = [
 
     url(r'^userpage/', views.userpage, name = 'circuit'),
     url(r'^profile/', views.userprofile, name = 'profile'),
+    
+    url(r'^measurements/', views.measurements, name = 'measurements'),
 ]

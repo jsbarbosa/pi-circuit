@@ -1,6 +1,5 @@
 import serial
 from time import sleep
-from serial import Serial
 from codecs import decode
 from threading import Thread
 
@@ -8,7 +7,6 @@ BAUDRATE = 4800
 TIMEOUT = 1.0
 
 class Serial(serial.Serial):
-	
 	def __init__(self, port):
 		super().__init__(port = port, baudrate = BAUDRATE, timeout = TIMEOUT,
 		stopbits = serial.STOPBITS_ONE, parity = serial.PARITY_NONE,
@@ -65,3 +63,10 @@ class Serial(serial.Serial):
 		print(chr(27) + "[2J")
 		print(self.vals)
 		sleep(refresh)
+        
+	def getCurrentValues(self):
+		self.vals = [getattr(self, "channel%d"%i) for i in range(6)]
+		return self.vals
+    
+	def getCurrentChannel(self, channel):
+		return getattr(self, "channel%d"%channel)
