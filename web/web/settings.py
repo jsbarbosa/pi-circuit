@@ -27,7 +27,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.8', '0.0.0.0', '127.0.0.1', '192.168.0.13']
+ALLOWED_HOSTS = ['192.168.0.8', '0.0.0.0', '127.0.0.1', '192.168.43.99']
 
 # Application definition
 

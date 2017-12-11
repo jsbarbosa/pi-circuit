@@ -36,4 +36,7 @@ urlpatterns = [
     
     url(r'^measurements/', views.measurements, name = 'measurements'),
     url(r'^examplecircuit/', views.examplecircuit, name = 'examplecircuit'),
+    
+    url(r'^examplecircuit_helper/', views.examplecircuit_helper, name = 'examplecircuit_helper'),
+    url(r'^measurements_helper/', views.measurements_helper, name = 'measurements_helper'),
 ]

@@ -50,6 +50,45 @@ def userlogout(request):
     logout(request)
     return index(request)
     
+def measurements_helper(request):
+    adc = []
+    outs = []
+    ins = []
+    for item in ADC_TO_SHOW:
+        name, i = item
+        if name == "":
+            name = "ADC%d"%i
+        else:
+            name += " (ADC%d)"%i
+        value = PORT.getCurrentChannel(i)
+        if VREF > 0:
+            value *= VREF/MAXVAL
+        m = Measurement(name, round(value, 3))
+        adc.append(m)
+        
+    for item in OUT_TO_SHOW:
+        name, i = item
+        if name == "":
+            name = "OUT%d"%i
+        else:
+            name += " (OUT%d)"%i
+        digital.OUT_PINS[i].setState(1)
+        m = Measurement(name, True)
+        outs.append(m)
+        
+    for item in IN_TO_SHOW:
+        name, i = item
+        if name == "":
+            name = "IN%d"%i
+        else:
+            name += " (IN%d)"%i
+        val = digital.IN_PINS[i].getState()
+        m = Measurement(name, bool(val))
+        ins.append(m)
+        
+    return render(request, 'app/measurements_helper.html', context={"adc_values": adc, "in_values": ins, "out_values": outs})
+	#~ return measurements(request)
+	
 def measurements(request):
     adc = []
     outs = []
@@ -89,7 +128,15 @@ def measurements(request):
     return render(request, 'app/measurements.html', context={"adc_values": adc, "in_values": ins, "out_values": outs})
     
 @login_required
+def examplecircuit_helper(request):
+	adcs = [1, 2]
+	values = [Measurement("ADC%d"%i, PORT.getCurrentChannel(i)) for i in adcs]
+	return render(request, 'app/examplecircuit_helper.html', context={"adc_values": values})
+
+@login_required
 def examplecircuit(request):
+	adcs = [1, 2]
+	values = [Measurement("ADC%d"%i, PORT.getCurrentChannel(i)) for i in adcs]
 	if request.method == 'POST':
 		form = ExampleCircuitForm(request.POST)
 		if form.is_valid():
@@ -97,10 +144,10 @@ def examplecircuit(request):
 			exampleCircuit.E2.setValue( int(form.cleaned_data.get("E2")) - 1 )
 			exampleCircuit.E3.setValue( int(form.cleaned_data.get("E3")) - 1 )
 			exampleCircuit.E4.setValue( int(form.cleaned_data.get("E4")) - 1 )
-			return measurements(request)
+			#~ return measurements(request)
 	else:
 		form = ExampleCircuitForm()
-	return render(request, 'app/examplecircuit.html', context={"form": form})
+	return render(request, 'app/examplecircuit.html', context={"form": form, "adc_values": values})
 
 @login_required
 def userpage(request):

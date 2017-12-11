@@ -12,13 +12,13 @@
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <script>
         $.ajax({
-            url: "{% url 'measurements' %}",
+            url: "{% url 'measurements_helper' %}",
             success: function(data)
             {
-                $('#body').html(data);
+                $('#container').empty().html(data);
             }
         })
-        setTimeout(refresh, 100000);
+        setInterval(refresh, 1000);
     </script>
     <style>
         table td 
@@ -30,7 +30,7 @@
         }
     </style>
   </head>
-  <body id = "body">
+  <body id="body">
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
           <a class="navbar-brand" href="{% url 'index' %}">Pi-circuit</a>
           <ul class="navbar-nav">
@@ -51,9 +51,9 @@
               </li>
           </ul>
       </nav>
-      <div class="container">
+      <div class="container" id="container">
           <div class="jumbotron text-center">
-              <h1 class="jumbotron-heading">Measurements: {{ user }}</h1>
+            <h1 class="jumbotron-heading">Measurements: {{ user }}</h1>
             <hr>
             <h4>Analog results:</h4>
              <table class="table">

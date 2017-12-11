@@ -6,8 +6,29 @@
     <title>Pi-circuit</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <script>
+        $.ajax({
+            url: "{% url 'examplecircuit_helper' %}",
+            success: function(data)
+            {
+                $('#table').empty().html(data);
+            }
+        })
+        setInterval(refresh, 1000);
+    </script>
+    <style>
+        table td 
+        {
+          table-layout:fixed;
+          width:20px;
+          overflow:hidden;
+          word-wrap:break-word;
+        }
+    </style>
   </head>
-  <body>
+  <body id = "body">
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
           <a class="navbar-brand" href="{% url 'index' %}">Pi-circuit</a>
           <ul class="navbar-nav">
@@ -33,16 +54,35 @@
               <h1 class="jumbotron-heading">{{ user }}</h1>
               
               <div class="text-center">
-                <img src="{% static "examplecircuit.png" %}" class="rounded" width="700px">
-                </div>
-              
-
-              <form method="post">
-                 {% csrf_token %}
-                {{ form.as_p }}
-                 <br>
-                 <button type="submit">Set</button>
-              </form>
+                <img src="{% static "examplecircuit.png" %}" class="rounded" width="500px">
+                <img src="{% static "esquematico.png" %}" class="rounded" width="500px">
+              </div>
+            <div class="row">
+             <div class="col-sm-2"></div>
+              <div class="col-sm-3">
+                  <br>
+                  <form method="post">
+                     {% csrf_token %}
+                     {{ form.as_p }}
+                     <br>
+                     <button type="submit">Set</button>
+                  </form>
+              </div>
+              <div class="col-sm-3">
+                <table class="table" id = "table">
+                    <tr>
+                        <th>Element</th>
+                        <th>Value</th> 
+                    </tr>
+                    {% for value in adc_values %}
+                        <tr>
+                            <td id = "name">{{ value.name }}</td>
+                            <td style="font-family: 'Orbitron', sans-serif; padding:0,0,0,0; border:solid 2px black;" bgcolor="#7CFC00">{{ value.value }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+              </div>
+            </div>
           </div>
       </div>
   </body>
